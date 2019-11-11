@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 
 import List from '../List'
+import Filters from '../Filters'
 
 class App extends Component {
   constructor(props) {
@@ -24,6 +25,7 @@ class App extends Component {
         :
           <h1>Você precisa realizar o Login</h1>
         }
+        <Filters />
       </div>
     )
   }

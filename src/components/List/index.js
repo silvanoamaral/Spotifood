@@ -28,10 +28,10 @@ class List extends Component {
         filtered: res.playlists.items
       })
     })
-    .catch(err => console.log(err))
+    .catch(err => err)
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     this.setState({
       filtered: nextProps.items
     })
