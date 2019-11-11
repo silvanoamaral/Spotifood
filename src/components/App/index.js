@@ -20,11 +20,7 @@ class App extends Component {
     return (
       <div className="content">
         {this.isLogin() ?
-          <div className="container">
-            <section className="section">
-              <List />
-            </section>
-          </div>
+          <List />
         :
           <h1>Você precisa realizar o Login</h1>
         }

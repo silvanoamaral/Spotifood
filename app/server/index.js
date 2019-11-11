@@ -17,12 +17,16 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 
 app.use('/api/getList', async (req, res, next) => {
-  if(!req.cookies.accessToken) {
-    res.status(203).send({'message':'Não autorizado'})
-  } else {
-    const token = req.cookies.accessToken
-    const playList = await getSpotifyList(token)
-    res.send(playList)
+  try {
+    if(!req.cookies.accessToken) {
+      res.status(203).send({'message':'Não autorizado'})
+    } else {
+      const token = req.cookies.accessToken
+      const playList = await getSpotifyList(token)
+      res.send(playList)
+    }
+  } catch(error) {
+    res.status(203).send({message:'Não autorizado'})
   }
   next()
 })

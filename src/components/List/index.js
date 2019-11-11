@@ -60,17 +60,19 @@ class List extends Component {
 
   render() {
 		return (
-			<div>
-				<input type="text" className="input" onChange={this.handleChange} placeholder="Search..." />
-        <ul>
-          {this.state.filtered &&
-            this.state.filtered.map(item => (
-              <li key={item.id}>
-                {item.name}
-              </li>
-            ))
-          }
-        </ul>
+      <div className="container">
+        <section className="section">
+          <input type="text" className="input" onChange={this.handleChange} placeholder="Search..." />
+          <ul>
+            {this.state.filtered &&
+              this.state.filtered.map(item => (
+                <li key={item.id}>
+                  {item.name}
+                </li>
+              ))
+            }
+          </ul>
+        </section>
       </div>
 		)
 	}
