@@ -16,30 +16,13 @@ class App extends Component {
     return code[2] !== 'undefined' ? true : false
   }
 
-  async callApi() {
-    const response = await fetch(`api/getList`)
-    const body = await response.json()
-
-    if (response.status !== 200) throw Error(body.message)
-
-    return body
-  }
-
-  componentDidMount() {
-    if(this.isLogin()) {
-      this.callApi()
-      .then(res => this.setState({ list: res.express }))
-      .catch(err => console.log(err))
-    }
-  }
-
   render() {
     return (
       <div className="content">
         {this.isLogin() ?
           <div className="container">
             <section className="section">
-              <List items={this.state.list} />
+              <List />
             </section>
           </div>
         :

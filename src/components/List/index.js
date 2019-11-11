@@ -5,16 +5,30 @@ class List extends Component {
   constructor(props) {
 		super(props)
 		this.state = {
-			filtered: []
+      filtered: [],
+      items: []
 		}
 		this.handleChange = this.handleChange.bind(this)
   }
 
-  componentDidMount() {
-    console.log(this.props.items)
-    this.setState({
-      filtered: this.props.items
+  async callApi() {
+    const response = await fetch(`api/getList`)
+    const body = await response.json()
+
+    if (response.status !== 200) throw Error(body.message)
+
+    return body
+  }
+
+  async componentDidMount() {
+    await this.callApi()
+    .then(res => {
+      this.setState({ 
+        items: res.playlists.items,
+        filtered: res.playlists.items
+      })
     })
+    .catch(err => console.log(err))
   }
 
   componentWillReceiveProps(nextProps) {
@@ -26,17 +40,17 @@ class List extends Component {
 	handleChange(e) {
     let currentList = []
     let newList = []
-		
+
     if (e.target.value !== '') {
-      currentList = this.props.items
+      currentList = this.state.items
 
       newList = currentList.filter(item => {
-        const lc = item.toLowerCase()
+        const lc = item.name.toLowerCase()
         const filter = e.target.value.toLowerCase()
         return lc.includes(filter)
       })
     } else {
-      newList = this.props.items
+      newList = this.state.items
     }
 
     this.setState({
@@ -51,8 +65,8 @@ class List extends Component {
         <ul>
           {this.state.filtered &&
             this.state.filtered.map(item => (
-              <li key={item}>
-                {item}
+              <li key={item.id}>
+                {item.name}
               </li>
             ))
           }
