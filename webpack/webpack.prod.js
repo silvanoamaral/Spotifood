@@ -26,7 +26,7 @@ module.exports = merge(common, {
       }
     }),
     new HtmlWebpackPlugin ({
-      title: 'ReactJS - The Movie Database (TMDb)',
+      title: 'Developer Spotify API',
       favicon: path.join(__dirname, '../public/image/favicon.png'),
       template:path.join(__dirname, '../public/index.html'),
       inject: 'body'
