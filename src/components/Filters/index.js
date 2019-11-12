@@ -35,9 +35,8 @@ class Filters extends Component {
   }
 
   render() {
-
     return (
-      <div>
+      <section className="filters">
         {this.state.filters &&
           this.state.filters.filters.map(filter => {
             return <ul key={ filter.id } className="filters">
@@ -57,7 +56,7 @@ class Filters extends Component {
             </ul>
           })
         }
-      </div>
+      </section>
     )
   }
 }

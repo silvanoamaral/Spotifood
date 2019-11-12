@@ -2,9 +2,13 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
+import { fetchSpotifySuccess } from '../../redux/actions'
 import getSpotify from '../../services/fetchSpotify'
+import Loading from '../Loading'
+import CardList from '../CardList'
+import Filters from '../Filters'
 
-class List extends Component {
+class PlayListFeatured extends Component {
   constructor(props) {
 		super(props)
 		this.state = {
@@ -14,40 +18,28 @@ class List extends Component {
 		this.handleChange = this.handleChange.bind(this)
   }
 
-  async callApi() {
-    const response = await fetch(`api/getList`)
-    const body = await response.json()
-
-    if (response.status !== 200) throw Error(body.message)
-
-    return body
-  }
-
   async componentDidMount() {
     const { dispatch } = this.props
-    await dispatch(getSpotify.fetchSpotify())
-    /* await this.callApi()
-    .then(res => {
-      this.setState({ 
-        items: res.playlists.items,
-        filtered: res.playlists.items
-      })
-    })
-    .catch(err => err) */
+    dispatch(getSpotify.fetchSpotify())
   }
 
   UNSAFE_componentWillReceiveProps(nextProps) {
-    this.setState({
-      filtered: nextProps.items
-    })
+    const { playlists } = nextProps.spotify
+    if(playlists) {
+      this.setState({
+        filtered: playlists.items,
+        items: playlists.items
+      })
+    }
   }
-	
+
 	handleChange(e) {
     let currentList = []
     let newList = []
 
     if (e.target.value !== '') {
       currentList = this.state.items
+      console.log(currentList)
 
       newList = currentList.filter(item => {
         const lc = item.name.toLowerCase()
@@ -58,37 +50,37 @@ class List extends Component {
       newList = this.state.items
     }
 
+    const { dispatch } = this.props
+    dispatch(fetchSpotifySuccess(newList))
+    console.log('newList', newList)
     this.setState({
       filtered: newList
     })
   }
 
   render() {
-    const { spotify = [], pending, error} = this.props
-
+    const { spotify, pending, error} = this.props
     const isEmpty = spotify.length === 0
 
 		return (
       <>
         {isEmpty
-          ? (pending ? <h1>aguarde...</h1> : <h1>Emply</h1>)
-          : (error ? 
-            <p>{error}</p> :
-
-            <div className="container">
-              <section className="section">
-                <input type="text" className="input" onChange={this.handleChange} placeholder="Search..." />
-                <ul>
-                  {this.state.filtered &&
-                    this.state.filtered.map(item => (
-                      <li key={item.id}>
-                        {item.name}
-                      </li>
-                    ))
-                  }
-                </ul>
-              </section>
+          ? (pending ? <Loading /> : <h1>Emply</h1>)
+          : (error ?
+            <div className="acesss__spotify">
+              <a href="/login">Ir para a página login</a>
+              <p>{error}</p>
             </div>
+          :
+            <section className="play__list">
+              <input type="text" className="input" onChange={this.handleChange} placeholder="Search..." />
+              {spotify &&
+                <>
+                  <CardList list={ spotify } />
+                  <Filters />
+                </>
+              }
+            </section>
           )
         }
       </>
@@ -118,11 +110,9 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-)(List)
+)(PlayListFeatured)
 
-//export default List
-
-List.propTypes = {
+PlayListFeatured.propTypes = {
   error: PropTypes.string,
   pending: PropTypes.boolean,
   items: PropTypes.array,
