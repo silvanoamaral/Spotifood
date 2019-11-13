@@ -7,59 +7,24 @@ import getSpotify from '../../services/fetchSpotify'
 import Loading from '../Loading'
 import CardList from '../CardList'
 import Filters from '../Filters'
+import SearchBar from '../SearchBar'
 
 class PlayListFeatured extends Component {
-  constructor(props) {
-		super(props)
-		this.state = {
-      filtered: [],
-      items: []
-		}
-		this.handleChange = this.handleChange.bind(this)
-  }
-
   async componentDidMount() {
     const { dispatch } = this.props
     dispatch(getSpotify.fetchSpotify())
   }
 
   UNSAFE_componentWillReceiveProps(nextProps) {
-    const { playlists } = nextProps.spotify
-    if(playlists) {
-      this.setState({
-        filtered: playlists.items,
-        items: playlists.items
-      })
+    if(nextProps.filtered.playlists) {
+      const { dispatch } = this.props
+      console.log('nextProps.filtered',nextProps)
+      dispatch(fetchSpotifySuccess(nextProps.filtered))
     }
-  }
-
-	handleChange(e) {
-    let currentList = []
-    let newList = []
-
-    if (e.target.value !== '') {
-      currentList = this.state.items
-      console.log(currentList)
-
-      newList = currentList.filter(item => {
-        const lc = item.name.toLowerCase()
-        const filter = e.target.value.toLowerCase()
-        return lc.includes(filter)
-      })
-    } else {
-      newList = this.state.items
-    }
-
-    const { dispatch } = this.props
-    dispatch(fetchSpotifySuccess(newList))
-    console.log('newList', newList)
-    this.setState({
-      filtered: newList
-    })
   }
 
   render() {
-    const { spotify, pending, error} = this.props
+    const { spotify, pending, error, filtered } = this.props
     const isEmpty = spotify.length === 0
 
 		return (
@@ -73,10 +38,10 @@ class PlayListFeatured extends Component {
             </div>
           :
             <section className="play__list">
-              <input type="text" className="input" onChange={this.handleChange} placeholder="Search..." />
-              {spotify &&
+              <SearchBar />
+              {filtered &&
                 <>
-                  <CardList list={ spotify } />
+                  <CardList list={ filtered } />
                   <Filters />
                 </>
               }
@@ -94,17 +59,20 @@ const mapStateToProps = state => {
   const {
     error,
     pending,
-    spotify
+    spotify,
+    filtered
   } = spotifyReducer || {
     error: false,
     pending: true,
-    spotify: []
+    spotify: [],
+    filtered: []
   }
 
   return {
     error,
     pending,
-    spotify
+    spotify,
+    filtered
   }
 }
 
@@ -114,8 +82,13 @@ export default connect(
 
 PlayListFeatured.propTypes = {
   error: PropTypes.string,
-  pending: PropTypes.boolean,
-  items: PropTypes.array,
-  spotify: PropTypes.object,
-  dispatch: PropTypes.func
+  pending: PropTypes.bool,
+  dispatch: PropTypes.func,
+  filtered: PropTypes.array,
+  spotify: PropTypes.array
+}
+
+PlayListFeatured.defaultProps = {
+  filtered: {},
+  spotify: {}
 }

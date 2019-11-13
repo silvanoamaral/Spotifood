@@ -23,5 +23,10 @@ export default CardList
 
 CardList.propTypes = {
   list: PropTypes.object,
-  playlists: PropTypes.object
+  playlists: PropTypes.array
+}
+
+CardList.defaultProps = {
+  list: {},
+  playlists: []
 }
