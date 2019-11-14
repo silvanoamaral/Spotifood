@@ -8,7 +8,7 @@ const fetchSpotify = () => {
   return dispatch => {
     dispatch(fetchSpotifyPending())
 
-    fetch(`api/getList`)
+    fetch(`api/getList?locale=en_US&country=US&offset=0&limit=20`)
       .then(res => {
         if (res.status !== 200) {
           dispatch(fetchSpotifyError('Não Autorizado, efetuar login'))
