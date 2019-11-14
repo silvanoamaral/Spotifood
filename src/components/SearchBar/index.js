@@ -12,6 +12,7 @@ class SearchBar extends Component {
     return (
       <input
         type="text"
+        className="search"
         placeholder="Search..."
         onChange={ e => search(e.target.value) }
         value={ value }
