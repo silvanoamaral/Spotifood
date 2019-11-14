@@ -16,7 +16,7 @@ const fetchSpotify = (
     fetch(`api/getList?locale=${locale}&country=${country}&offset=${offset}&limit=${limit}`)
       .then(res => {
         if (res.status !== 200) {
-          dispatch(fetchSpotifyError('Não Autorizado, efetuar login'))
+          dispatch(fetchSpotifyError('Você precisa realizar o login para acessar a PlayList.'))
         }
         return res.json()
       })

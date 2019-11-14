@@ -17,7 +17,7 @@ it('Mount renders SearchBar component', () => {
   )
 
   expect(wrapper.find('input')
-  .hasClass('search'))
+  .hasClass('search__input'))
   .equal(true)
 })
 

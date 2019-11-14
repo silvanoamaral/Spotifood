@@ -1,6 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import './CheckBox.scss'
+
 export const CheckBox = props => {
   const { name, value, params, event } = props
   return (

@@ -1,0 +1,14 @@
+.acesss {
+  &__spotify {
+    padding: 100px 0;
+    text-align: center;
+
+    a {
+      cursor: pointer;
+      color: #db810a;
+      text-decoration: none;
+      margin-top: 20px;
+      display: block;
+    }
+  }
+}

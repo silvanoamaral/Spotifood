@@ -4,19 +4,22 @@ import { bindActionCreators } from 'redux'
 import PropTypes from 'prop-types'
 
 import { search } from '../../redux/actions'
+import './SearchBar.scss'
 
 class SearchBar extends Component {
   render() {
     const { search, value } = this.props
 
     return (
+      <div className="search">
       <input
         type="text"
-        className="search"
-        placeholder="Search..."
+        className="search__input"
+        placeholder="Filtrar pelo nome"
         onChange={ e => search(e.target.value) }
         value={ value }
       />
+      </div>
     )
   }
 }

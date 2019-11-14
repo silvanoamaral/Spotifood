@@ -5,8 +5,9 @@ import PropTypes from 'prop-types'
 import getSpotify from '../../services/fetchSpotify'
 import Loading from '../Loading'
 import CardList from '../CardList'
-import Filters from '../Filters'
+//import Filters from '../Filters'
 import SearchBar from '../SearchBar'
+import Login from '../Login'
 
 class PlayListFeatured extends Component {
   async componentDidMount() {
@@ -22,26 +23,20 @@ class PlayListFeatured extends Component {
       <>
         {isEmpty 
         ? (
-            pending ? ( <Loading /> )
-            : ( <h1>Emply</h1> )
+            pending ? <Loading />
+            : <h1>Emply</h1>
           )
         : error 
-        ? (
-            <div className="acesss__spotify">
-              <a href="/login">Ir para a página login</a>
-              <p>{ error }</p>
-            </div>
-          )
+        ? <Login error={ error } />
         : (
-            <section className="play__list">
+            <div className="container">
               <SearchBar />
               {filtered && (
                 <>
                   <CardList list={ filtered } />
-                  <Filters />
                 </>
               )}
-            </section>
+            </div>
           )
         }
       </>

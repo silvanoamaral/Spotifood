@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
+import './CardList.scss'
+
 class CardList extends Component {
   render() {
     const { playlists } = this.props.list
@@ -9,8 +11,9 @@ class CardList extends Component {
       <ul className="card">
         {playlists &&
           playlists.items.map(item =>
-            <li key={ item.id }>
-              {item.name}
+            <li key={ item.id }>              
+              <img src={item.images[0].url} />
+              <p>{item.name}</p>
             </li>
           )
         }

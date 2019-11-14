@@ -1,0 +1,15 @@
+ul {
+  &.card {
+    display: grid;
+    grid-template-columns: 33% 33% 32%;
+
+    li {
+      margin-bottom: 35px;
+      text-align: center;
+
+      p {
+        font-size: 15px;
+      }
+    }
+  }
+}
