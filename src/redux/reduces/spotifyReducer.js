@@ -1,11 +1,16 @@
-import { FETCH_SPOTIFY_ERROR, FETCH_SPOTIFY_PENDING, FETCH_SPOTIFY_SUCCESS, FETCH_SPOTIFY_SEARCH } from '../actions/actionTypes'
+import {
+  FETCH_SPOTIFY_ERROR,
+  FETCH_SPOTIFY_PENDING,
+  FETCH_SPOTIFY_SUCCESS,
+  FETCH_SPOTIFY_SEARCH,
+} from '../actions/actionTypes'
 
 const initialState = {
   pending: false,
   spotify: [],
   filtered: [],
   value: '',
-  error: null
+  error: null,
 }
 
 export const spotifyReducer = (state = initialState, action) => {
@@ -15,30 +20,35 @@ export const spotifyReducer = (state = initialState, action) => {
         ...state,
         pending: false,
         spotify: action.spotify,
-        filtered: action.spotify
+        filtered: action.spotify,
       }
-    case FETCH_SPOTIFY_ERROR: 
+    case FETCH_SPOTIFY_ERROR:
       return {
         ...state,
         pending: false,
-        error: action.error
+        error: action.error,
       }
     case FETCH_SPOTIFY_PENDING:
       return {
         ...state,
         pending: true,
-        spotify: []
+        spotify: [],
       }
     case FETCH_SPOTIFY_SEARCH: {
       const value = action.value
+
       return {
         ...state,
         value,
-        filtered: state.spotify.playlists.items.filter(item => {
-          const lc = item.name.toLowerCase()
-          const filter = value.toLowerCase()
-          return lc.includes(filter)
-        })
+        filtered: {
+          "playlists": {
+            "items" : state.spotify.playlists.items.filter(item => {
+              const lc = item.name.toLowerCase()
+              const filter = value.toLowerCase()
+              return lc.includes(filter)
+            })
+          }
+        }
       }
     }
     default:

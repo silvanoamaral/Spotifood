@@ -8,11 +8,11 @@ class CardList extends Component {
     return (
       <ul className="card">
         {playlists &&
-          playlists.items.map(item => (
-            <li key={item.id}>
+          playlists.items.map(item =>
+            <li key={ item.id }>
               {item.name}
             </li>
-          ))
+          )
         }
       </ul>
     )
@@ -22,11 +22,6 @@ class CardList extends Component {
 export default CardList
 
 CardList.propTypes = {
-  list: PropTypes.object,
-  playlists: PropTypes.array
-}
-
-CardList.defaultProps = {
-  list: {},
-  playlists: []
+  list: PropTypes.any,
+  playlists: PropTypes.any,
 }

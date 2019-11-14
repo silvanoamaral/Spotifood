@@ -3,13 +3,8 @@ import thunk from 'redux-thunk'
 
 import reduces from '../reduces'
 
-const middlewares = [
-  thunk
-]
+const middlewares = [thunk]
 
-const store = createStore (
-  reduces,
-  applyMiddleware(...middlewares)
-)
+const store = createStore(reduces, applyMiddleware(...middlewares))
 
 export default store

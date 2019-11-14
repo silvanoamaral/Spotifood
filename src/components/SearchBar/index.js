@@ -7,21 +7,22 @@ import { search } from '../../redux/actions'
 
 class SearchBar extends Component {
   render() {
-    const {search, value} = this.props
+    const { search, value } = this.props
 
     return (
       <input
-        className="form-control"
-        placeholder = "Search..."
-        onChange={(e) => search(e.target.value)}
-        value={value} />
+        type="text"
+        placeholder="Search..."
+        onChange={ e => search(e.target.value) }
+        value={ value }
+      />
     )
   }
 }
 
 function mapStateToProps({ spotifyReducer }) {
   return {
-    value: spotifyReducer !== undefined ? spotifyReducer.value : '' 
+    value: spotifyReducer !== undefined ? spotifyReducer.value : '',
   }
 }
 
@@ -33,5 +34,5 @@ export default connect(mapStateToProps, mapDispatchToProps)(SearchBar)
 
 SearchBar.propTypes = {
   value: PropTypes.string,
-  search: PropTypes.func
+  search: PropTypes.func,
 }

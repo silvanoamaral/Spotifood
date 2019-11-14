@@ -2,24 +2,24 @@ import {
   FETCH_SPOTIFY_PENDING,
   FETCH_SPOTIFY_SUCCESS,
   FETCH_SPOTIFY_SEARCH,
-  FETCH_SPOTIFY_ERROR
+  FETCH_SPOTIFY_ERROR,
 } from './actionTypes'
 
 export const fetchSpotifyPending = () => ({
-  type: FETCH_SPOTIFY_PENDING
+  type: FETCH_SPOTIFY_PENDING,
 })
 
 export const fetchSpotifySuccess = spotify => ({
   type: FETCH_SPOTIFY_SUCCESS,
-  spotify
+  spotify,
 })
 
 export const fetchSpotifyError = error => ({
   type: FETCH_SPOTIFY_ERROR,
-  error
+  error,
 })
 
 export const search = value => ({
   type: FETCH_SPOTIFY_SEARCH,
-  value
+  value,
 })
