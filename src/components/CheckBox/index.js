@@ -8,7 +8,7 @@ export const CheckBox = props => {
       <input
         type="checkbox"
         value={value}
-        onClick={event}
+        onChange={event}
         data-params={params}
       />
       {name}

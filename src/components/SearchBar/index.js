@@ -21,13 +21,13 @@ class SearchBar extends Component {
   }
 }
 
-function mapStateToProps({ spotifyReducer }) {
+const mapStateToProps = ({ spotifyReducer }) => {
   return {
     value: spotifyReducer !== undefined ? spotifyReducer.value : '',
   }
 }
 
-function mapDispatchToProps(dispatch) {
+const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({ search }, dispatch)
 }
 

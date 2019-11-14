@@ -3,6 +3,7 @@ import {
   FETCH_SPOTIFY_SUCCESS,
   FETCH_SPOTIFY_SEARCH,
   FETCH_SPOTIFY_ERROR,
+  FETCH_SPOTIFY_SELECT,
 } from './actionTypes'
 
 export const fetchSpotifyPending = () => ({
@@ -23,3 +24,10 @@ export const search = value => ({
   type: FETCH_SPOTIFY_SEARCH,
   value,
 })
+
+export const select = option => {
+  return {
+    type: FETCH_SPOTIFY_SELECT,
+    option
+  }
+}

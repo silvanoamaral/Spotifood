@@ -4,11 +4,16 @@ import {
   fetchSpotifyError,
 } from '../redux/actions'
 
-const fetchSpotify = () => {
+const fetchSpotify = (
+  locale = 'en_US',
+  country = 'US',
+  offset = 0,
+  limit = 20
+) => {
   return dispatch => {
     dispatch(fetchSpotifyPending())
 
-    fetch(`api/getList?locale=en_US&country=US&offset=0&limit=20`)
+    fetch(`api/getList?locale=${locale}&country=${country}&offset=${offset}&limit=${limit}`)
       .then(res => {
         if (res.status !== 200) {
           dispatch(fetchSpotifyError('Não Autorizado, efetuar login'))

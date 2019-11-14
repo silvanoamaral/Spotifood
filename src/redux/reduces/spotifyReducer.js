@@ -3,6 +3,7 @@ import {
   FETCH_SPOTIFY_PENDING,
   FETCH_SPOTIFY_SUCCESS,
   FETCH_SPOTIFY_SEARCH,
+  FETCH_SPOTIFY_SELECT
 } from '../actions/actionTypes'
 
 const initialState = {
@@ -10,6 +11,7 @@ const initialState = {
   spotify: [],
   filtered: [],
   value: '',
+  option: '',
   error: null,
 }
 
@@ -49,6 +51,13 @@ export const spotifyReducer = (state = initialState, action) => {
             })
           }
         }
+      }
+    }
+    case FETCH_SPOTIFY_SELECT: {
+      return {
+        ...state,
+        pending: false,
+        option: action.option
       }
     }
     default:
