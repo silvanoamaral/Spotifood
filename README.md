@@ -45,3 +45,13 @@ After installing project dependencies, in the project directory you can run: `np
 
 Runs the app in the development mode.<br>
 Open [http://localhost:8000](http://localhost:8000) to view it in the browser
+
+
+### `Running the Application`
+* 1 - Visit the page [http://localhost:8000](http://localhost:8000);
+* 2 - Click Log in Link; 
+* 3 - The Spotify account login is displayed;
+* 4 - Log in with your Spotify credentials; 
+* 5 - You are now looking at the authorization screen, click the accept link to view the playlist.
+
+![NewGIF](https://user-images.githubusercontent.com/24282267/69015615-6f840200-0974-11ea-9d1d-3a0ceb52ac3e.gif)
