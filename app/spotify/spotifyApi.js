@@ -1,8 +1,37 @@
 'use strict'
 
 const fetch = require('node-fetch')
+
+const getFilter = async (next) => {
+  try {
+    const options = {
+      rejectUnauthorized: false,
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }
+
+    let result
+
+    await fetch('http://www.mocky.io/v2/5a25fade2e0000213aa90776', options)
+    .then(res => res.json())
+    .then(data => {
+      result = data
+    })
+    .catch(err => {
+      result = err
+    })
+
+    return result
+  } catch(error) {
+    console.log('error.getFilter', error.message)
+    next()
+  }
+  return false
+}
  
-const getSpotifyList = async (code, query) => {
+const getSpotifyList = async (code, query, next) => {
   const locale = query.locale || 'en_US',
     country = query.country || 'US',
     offset = query.offset || 0,
@@ -18,16 +47,26 @@ const getSpotifyList = async (code, query) => {
     }
   }
 
-  return await fetch(url, options)
+  let spotify
+  
+  await fetch(url, options)
   .then(response => {
     if(response.status !== 200) {
       throw Error(response.statusText)
     }
-    return response.json()
+    return response.json()    
   })
   .then(responseData => {
-    return responseData
+    spotify = responseData
   })
+
+  const filters = await getFilter(next)
+
+  const data = {
+    spotify,
+    filters
+  }
+  return data
 }
 
 module.exports = {

@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import getSpotify from '../../services/fetchSpotify'
 import Loading from '../Loading'
 import CardList from '../CardList'
-//import Filters from '../Filters'
+import Filters from '../Filters'
 import SearchBar from '../SearchBar'
 import Login from '../Login'
 
@@ -16,28 +16,26 @@ class PlayListFeatured extends Component {
   }
 
   render() {
-    const { spotify, pending, error, filtered } = this.props
-    const isEmpty = spotify.length === 0
+    const { pending, error, filtered, dispatch } = this.props
 
     return (
       <>
-        {isEmpty 
-        ? (
-            pending ? <Loading />
-            : <h1>Emply</h1>
-          )
-        : error 
-        ? <Login error={ error } />
+        {pending 
+        ? <Loading />
         : (
+          error ?
+            <Login error={ error } />
+          :
             <div className="container">
               <SearchBar />
+              <Filters props={ this.props }/>
               {filtered && (
                 <>
-                  <CardList list={ filtered } />
+                  <CardList list={ filtered } dispatch={ dispatch } />
                 </>
               )}
             </div>
-          )
+          )        
         }
       </>
     )
@@ -51,12 +49,14 @@ const mapStateToProps = state => {
     error,
     pending,
     spotify,
-    filtered
+    filtered,
+    filters,
   } = spotifyReducer || {
     error: false,
     pending: true,
     spotify: [],
     filtered: [],
+    filters: [],
   }
 
   return {
@@ -64,6 +64,7 @@ const mapStateToProps = state => {
     pending,
     spotify,
     filtered,
+    filters,
   }
 }
 
@@ -74,5 +75,6 @@ PlayListFeatured.propTypes = {
   pending: PropTypes.bool,
   dispatch: PropTypes.func,
   filtered: PropTypes.any,
-  spotify: PropTypes.any
+  spotify: PropTypes.any,
+  filters: PropTypes.any
 }

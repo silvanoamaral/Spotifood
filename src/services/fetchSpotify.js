@@ -17,7 +17,7 @@ const fetchSpotify = (
       .then(res => {
         if (res.status !== 200) {
           dispatch(fetchSpotifyError('Você precisa realizar o login para acessar a PlayList.'))
-        }
+        }        
         return res.json()
       })
       .then(res => {

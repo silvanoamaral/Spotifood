@@ -4,7 +4,7 @@ const express    = require('express')
 const path       = require('path')
 const bodyParser = require('body-parser')
 const request = require('request')
-var cookieParser = require('cookie-parser')
+const cookieParser = require('cookie-parser')
 
 const { getSpotifyList } = require('../spotify/spotifyApi')
 const spotifyAuth = require('../auth/authPublicKey')
@@ -23,7 +23,7 @@ app.use('/api/getList', async (req, res, next) => {
       res.status(203).send({'message':'Não autorizado'})
     } else {
       const token = req.cookies.accessToken
-      const playList = await getSpotifyList(token, req.query)
+      const playList = await getSpotifyList(token, req.query, next)
       res.send(playList)
     }
   } catch(error) {

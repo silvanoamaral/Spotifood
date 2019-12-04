@@ -10,6 +10,7 @@ const initialState = {
   pending: false,
   spotify: [],
   filtered: [],
+  filters: [],
   value: '',
   option: '',
   error: null,
@@ -21,8 +22,9 @@ export const spotifyReducer = (state = initialState, action) => {
       return {
         ...state,
         pending: false,
-        spotify: action.spotify,
-        filtered: action.spotify,
+        spotify: action.spotify.spotify,
+        filtered: action.spotify.spotify,
+        filters: action.spotify.filters
       }
     case FETCH_SPOTIFY_ERROR:
       return {

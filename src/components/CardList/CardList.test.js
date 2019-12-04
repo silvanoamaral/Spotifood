@@ -8,6 +8,9 @@ it('renders CardList', () => {
       "items" : [ {
         "id" : "6ftJBzU2LLQcaKefMi7ee7",
         "name" : "Monday Morning Mood",
+        "images":[{
+          url: "www.teste.com.br"
+        }]
       } ]
     }
   }
